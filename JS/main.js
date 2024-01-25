@@ -1,13 +1,55 @@
 // # function
 // # -------------------------------
 
-function getMin(...value) {
-  const values = [...value];
-  let smaller = values[0];
-  values.forEach((value) => (smaller = value < smaller ? value : smaller));
-  return smaller;
-}
+function objectToTable(objectArray) {
+  let html = ``;
+  const properties = [];
 
+  for (const object of objectArray) {
+    if (typeof object == "object") {
+      for (const prop in object) {
+        if (!properties.includes(prop)) properties.push(prop);
+      }
+    }
+  }
+
+  let isNotObject = properties.length == 0;
+
+  html += `
+    <table class="table">
+        <thead>
+            <tr>
+    `;
+
+  if (isNotObject) {
+    html += `<th scope="col">List</th></tr></thead><tbody>`;
+    objectArray.forEach((element) => {
+      html += `<tr><td>${element}</td></tr>`;
+    });
+  } else {
+    properties.forEach((property) => {
+      html += `
+        <th scope="col">${property}</th>
+        `;
+    });
+    html += `</tr></thead><tbody>`;
+    objectArray.forEach((element) => {
+      html += `<tr>`;
+      properties.forEach((property) => {
+        if (element[property]) {
+          html += `<td>${element[property]}</td>`;
+        } else {
+          html += `<td></td>`;
+        }
+      });
+      html += `</tr>`;
+    });
+  }
+
+  html += `</tbody></table>`;
+
+  return html;
+}
 const getRandomNumber = (max = 10, min = 1) => Math.floor(Math.random() * (parseInt(max) - parseInt(min) + 1)) + parseInt(min);
 
 // # SNACK 1
@@ -19,7 +61,7 @@ const newList = vips.map((vip, index) => {
   return {
     nome: vip,
     tavolo: `Tavolo Vip`,
-    posto: index,
+    posto: index + 1,
   };
 });
 
@@ -200,7 +242,6 @@ const teams = [
 teams.forEach((team) => {
   team.score = getRandomNumber(15);
   team.foul = getRandomNumber(15);
-  return team;
 });
 
 const teamsFouls = teams.map((team) => {
@@ -228,123 +269,34 @@ const snack2El = document.querySelector("#snack-2");
 const snack3El = document.querySelector("#snack-3");
 const snack4El = document.querySelector("#snack-4");
 
-const tableTitleText = (title) => `<h4 class="text-center p-3 border-bottom">${title}</h4>`;
-const tableHeadText = (...heads) => {
-  headsArray = [...heads];
-  let headsTh = ``;
-  headsArray.forEach((value) => (headsTh += `<th scope="col">${value}</th>`));
-  return `
-        <table class="table">
-        <thead>
-            <tr>
-            ${headsTh}
-            </tr>
-          </thead>
-          <tbody>  
-  `;
-};
-const tableRowText = (...col) => {
-  colArray = [...col];
-  let colTd = ``;
-  colArray.forEach((value) => (colTd += `<td>${value}</td>`));
-  return `
-            <tr>
-            ${colTd}
-            </tr>
-  `;
-};
-const tableFootText = () => `</tbody></table>`;
+snack1El.innerHTML += `
+<h4 class="text-center border-bottom p-3 mt-3">Lista Vip</h4>
+${objectToTable(vips)}
+<h4 class="text-center border-bottom p-3 mt-3">Tavolo</h4>
+${objectToTable(newList)}
+`;
 
-let textHTML;
+snack2El.innerHTML += `
+<h4 class="text-center border-bottom p-3 mt-3">Studenti</h4>
+${objectToTable(students)}
+<h4 class="text-center border-bottom p-3 mt-3">Nomi Formattati</h4>
+${objectToTable(nomi)}
+<h4 class="text-center border-bottom p-3 mt-3">Studenti buoni voti</h4>
+${objectToTable(goodVote)}
+<h4 class="text-center border-bottom p-3 mt-3">Studenti più giovani buoni voti</h4>
+${objectToTable(bestStudents)}
+`;
 
-// # SNACK 1
+snack3El.innerHTML += `
+<h4 class="text-center border-bottom p-3 mt-3">Bici</h4>
+${objectToTable(bikes)}
+<h4 class="text-center border-bottom p-3 mt-3">Bici più leggere</h4>
+${objectToTable(lightBikes)}
+`;
 
-textHTML = ``;
-
-textHTML += tableTitleText("Vips List") + tableHeadText("Nomi Vip");
-vips.forEach((vip) => {
-  textHTML += tableRowText(vip);
-});
-textHTML += tableFootText();
-
-textHTML += tableTitleText("Tavoli e segnaposto") + tableHeadText("Nomi Vip", "Tavolo", "Posto");
-newList.forEach((vip) => {
-  const { nome, tavolo, posto } = vip;
-  textHTML += tableRowText(nome, tavolo, posto + 1);
-});
-textHTML += tableFootText();
-
-snack1El.innerHTML += textHTML;
-
-// # SNACK 2
-
-textHTML = ``;
-
-textHTML += tableTitleText("Studenti") + tableHeadText("id", "Nomi", "Somma Voti");
-students.forEach((student) => {
-  const { id, nome, vote } = student;
-  textHTML += tableRowText(id, nome, vote);
-});
-textHTML += tableFootText();
-
-textHTML += tableTitleText("Nomi formattati") + tableHeadText("Nomi");
-nomi.forEach((nome) => {
-  textHTML += tableRowText(nome);
-});
-textHTML += tableFootText();
-
-textHTML += tableTitleText("Ottimi studenti") + tableHeadText("id", "Nomi", "Somma Voti");
-goodVote.forEach((student) => {
-  const { id, nome, vote } = student;
-  textHTML += tableRowText(id, nome, vote);
-});
-textHTML += tableFootText();
-
-textHTML += tableTitleText("Ottimi studenti più giovani") + tableHeadText("id", "Nomi", "Somma Voti");
-bestStudents.forEach((student) => {
-  const { id, nome, vote } = student;
-  textHTML += tableRowText(id, nome, vote);
-});
-textHTML += tableFootText();
-
-snack2El.innerHTML += textHTML;
-
-// # SNACK 3
-
-textHTML = ``;
-
-textHTML += tableTitleText("Elenco Bici") + tableHeadText("Nome", "Peso");
-bikes.forEach((bike) => {
-  const { name, weight } = bike;
-  textHTML += tableRowText(name, weight);
-});
-textHTML += tableFootText();
-
-textHTML += tableTitleText("Bici piu leggere") + tableHeadText("Nome", "Peso");
-lightBikes.forEach((bike) => {
-  const { name, weight } = bike;
-  textHTML += tableRowText(name, weight);
-});
-textHTML += tableFootText();
-
-snack3El.innerHTML += textHTML;
-
-// # SNACK 3
-
-textHTML = ``;
-
-textHTML += tableTitleText("Teams") + tableHeadText("Nome", "Score", "Foul");
-teams.forEach((team) => {
-  const { name, score, foul } = team;
-  textHTML += tableRowText(name, score, foul);
-});
-textHTML += tableFootText();
-
-textHTML += tableTitleText("Teams") + tableHeadText("Nome", "Foul");
-teamsFouls.forEach((team) => {
-  const { name, foul } = team;
-  textHTML += tableRowText(name, foul);
-});
-textHTML += tableFootText();
-
-snack4El.innerHTML += textHTML;
+snack4El.innerHTML += `
+<h4 class="text-center border-bottom p-3 mt-3">Teams</h4>
+${objectToTable(teams)}
+<h4 class="text-center border-bottom p-3 mt-3">Teams Foul</h4>
+${objectToTable(teamsFouls)}
+`;
