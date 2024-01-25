@@ -55,6 +55,8 @@ const getRandomNumber = (max = 10, min = 1) => Math.floor(Math.random() * (parse
 // # SNACK 1
 // # -------------------------------
 
+//*- - - - - - - - - - - - - - - - -
+
 const vips = ["Dwayne Johnson", "Brad Pitt", "Johnny Depp", "Lady Gaga", "Cristiano Ronaldo", "Georgina Rodriguez", "Chiara Ferragni", "Fedez", "George Clooney", "Amal Clooney", "Maneskin"];
 
 const newList = vips.map((vip, index) => {
@@ -64,6 +66,8 @@ const newList = vips.map((vip, index) => {
     posto: index + 1,
   };
 });
+
+//*- - - - - - - - - - - - - - - - -
 
 console.group("SNACK 1");
 
@@ -80,7 +84,9 @@ console.groupEnd();
 // # SNACK 2
 // # -------------------------------
 
-/*
+//*- - - - - - - - - - - - - - - - -
+
+/* md-table
 | Id  | Name                  | Grades |
 | --- | --------------------- | ------ |
 | 213 | Marco della Rovere    | 78     |
@@ -134,6 +140,8 @@ const nomi = students.map((student) => student.nome.toUpperCase());
 const goodVote = students.filter((student) => student.vote > 70);
 const bestStudents = students.filter((student) => student.vote > 70 && student.id > 120);
 
+//*- - - - - - - - - - - - - - - - -
+
 console.group("SNACK 2");
 
 console.group("Studenti:");
@@ -156,6 +164,8 @@ console.groupEnd();
 
 // # SNACK 3
 // # -------------------------------
+
+//*- - - - - - - - - - - - - - - - -
 
 const bikes = [
   { name: "Bianchi Oltre XR4", weight: 7.2 },
@@ -186,6 +196,8 @@ const lightBikes = bikes.filter((bike) => {
   return weight == minWeight;
 });
 
+//*- - - - - - - - - - - - - - - - -
+
 console.group("SNACK 3");
 
 console.group("Bikes:");
@@ -200,6 +212,8 @@ console.groupEnd();
 
 // # SNACK 4
 // # -------------------------------
+
+//*- - - - - - - - - - - - - - - - -
 
 const teams = [
   {
@@ -248,6 +262,8 @@ const teamsFouls = teams.map((team) => {
   const { name, foul } = team;
   return { name, foul };
 });
+
+//*- - - - - - - - - - - - - - - - -
 
 console.group("SNACK 4");
 
