@@ -1,4 +1,4 @@
-# Snack 1:
+# Snack 1
 
 ```
 Dwayne Johnson ci ha chiesto di creare i segnaposto per il tavolo degli invitati alla sua mega festa vip.
@@ -21,7 +21,7 @@ La tipografia per stampare il tutto vuole che le mandiamo una lista di ospiti in
 Generiamo e stampiamo in console l'array di oggetti per i segnaposto.
 ```
 
-# Snack 2:
+# Snack 2
 
 ```
 Abbiamo un elenco degli studenti di una facoltà, identificati da id, Nome e somma totale dei loro voti di esame.
@@ -108,7 +108,7 @@ const teams = [
 - Valorizzare le proprietà dei punti fatti e dei falli subiti con numeri randomici
 - Creiamo un nuovo array i cui elementi contengono solo nomi e falli subiti, recuperandoli con il destructuring, e stampiamo tutto in console.
 
-# Snack 5:
+# Snack 5
 
 ```
 Dato un array di oggetti che rappresentano delle auto, chiedete all'utente con quante persone deve viaggiare e trovate la prima auto che soddisfa la richiesta:
@@ -133,7 +133,7 @@ let cars = [
 ]
 ```
 
-# Snack 6:
+# Snack 6
 
 ```
 Avete a disposizione un elenco di frutti per fare una macedonia.
