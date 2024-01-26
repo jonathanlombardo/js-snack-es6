@@ -277,6 +277,103 @@ console.groupEnd();
 
 console.groupEnd();
 
+// # SNACK 5
+// # -------------------------------
+
+//*- - - - - - - - - - - - - - - - -
+const cars = [
+  { color: "red", type: "sedan", capacity: 5 },
+  { color: "blue", type: "SUV", capacity: 7 },
+  { color: "green", type: "hatchback", capacity: 4 },
+  { color: "black", type: "convertible", capacity: 2 },
+  { color: "silver", type: "minivan", capacity: 8 },
+  { color: "white", type: "coupe", capacity: 2 },
+  { color: "gray", type: "truck", capacity: 3 },
+  { color: "yellow", type: "compact", capacity: 4 },
+  { color: "orange", type: "electric", capacity: 5 },
+];
+
+const snack5El = document.querySelector("#snack-5");
+const btn = document.querySelector("#snack-5 > .btn");
+const resultEl = document.querySelector("#snack-5 > .result-wrapper");
+
+btn.addEventListener("click", () => {
+  let userCapacity;
+  userCapacity = parseInt(prompt("In quanti siete a viaggiare?"));
+
+  while (!parseInt(userCapacity)) {
+    userCapacity = prompt("Devi inserire un numero. In quanti siete a viaggiare?");
+  }
+
+  const carsFound = cars.filter(({ capacity }) => capacity >= userCapacity);
+
+  if (carsFound.length) {
+    resultEl.innerHTML = `
+    <h4 class="text-center border-bottom p-3 mt-3">Auto trovate</h4>
+    ${objectToTable(carsFound)}
+    `;
+
+    console.group("SNACK 5");
+
+    console.group("Auto trovate:");
+    console.table(carsFound);
+    console.groupEnd();
+    console.groupEnd();
+  } else {
+    resultEl.innerHTML = `<h4 class="text-center border-bottom p-3 mt-3">Nessuna auto disponibile</h4>`;
+
+    console.group("SNACK 5");
+
+    console.group("Auto trovate:");
+    console.log("nessuna auto disponibile");
+    console.groupEnd();
+    console.groupEnd();
+  }
+});
+
+//*- - - - - - - - - - - - - - - - -
+
+// # SNACK 6
+// # -------------------------------
+
+//*- - - - - - - - - - - - - - - - -
+const products = [
+  { title: "Mela", price: 2.3 },
+  { title: "Banana", price: 1.5 },
+  { title: "Mango", price: 2 },
+  { title: "Pesca", price: 1.8 },
+  { title: "Pera", price: 1.5 },
+  { title: "Arancia", price: 2.2 },
+];
+
+const nFruit = getRandomNumber(4, 2);
+const choosedFruits = [];
+let finalPrice = 0;
+
+while (choosedFruits.length < nFruit) {
+  let i = getRandomNumber(products.length - 1, 0);
+  if (!choosedFruits.includes(products[i])) choosedFruits.push(products[i]);
+}
+choosedFruits.forEach(({ price }) => (finalPrice += price));
+
+//*- - - - - - - - - - - - - - - - -
+
+console.group("SNACK 6");
+
+console.group("Frutti:");
+console.table(products);
+console.groupEnd();
+
+console.group("Frutti Scelti:");
+console.table(choosedFruits);
+console.groupEnd();
+
+console.group("Prezzo finale:");
+console.log(finalPrice);
+console.groupEnd();
+
+console.groupEnd();
+
 // # PRINT SNACKS ON PAGE
 // # -------------------------------
 
@@ -284,6 +381,7 @@ const snack1El = document.querySelector("#snack-1");
 const snack2El = document.querySelector("#snack-2");
 const snack3El = document.querySelector("#snack-3");
 const snack4El = document.querySelector("#snack-4");
+const snack6El = document.querySelector("#snack-6");
 
 snack1El.innerHTML += `
 <h4 class="text-center border-bottom p-3 mt-3">Lista Vip</h4>
@@ -315,4 +413,12 @@ snack4El.innerHTML += `
 ${objectToTable(teams)}
 <h4 class="text-center border-bottom p-3 mt-3">Teams Foul</h4>
 ${objectToTable(teamsFouls)}
+`;
+
+snack6El.innerHTML += `
+<h4 class="text-center border-bottom p-3 mt-3">Frutta disponibile</h4>
+${objectToTable(products)}
+<h4 class="text-center border-bottom p-3 mt-3">Frutta scelta</h4>
+${objectToTable(choosedFruits)}
+<h4 class="text-center border-bottom p-3 mt-3">Prezzo finale € ${finalPrice.toFixed(2)}</h4>
 `;
